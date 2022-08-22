@@ -21,7 +21,6 @@ function Countries() {
       const response = await fetch("https://restcountries.com/v3.1/all");
       const getAllCountries = await response.json();
       setAllCountries([...getAllCountries]);
-      console.log("Countries", getAllCountries);
     };
     fetchCountries();
   }, [filterValue]);
