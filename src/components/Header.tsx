@@ -7,7 +7,7 @@ function Header() {
 
   return (
     <div
-      className={`py-8 px-5 md:py-4 md:px-16 flex items-center justify-between ${
+      className={`py-8 px-5 md:py-4 md:px-16 flex items-center justify-between shadow-md ${
         darkMode ? "bg-dark-blue text-white" : "bg-white text-very-dark-Blue"
       }`}
     >
