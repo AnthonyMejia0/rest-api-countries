@@ -5,8 +5,10 @@ interface flags {
 
 interface name {
   common: string,
-  official: string
+  official: string,
+  nativeName: Object
 }
+
 
 export interface countryType {
     name: name;
@@ -14,5 +16,9 @@ export interface countryType {
     region: string;
     capital: string;
     flags: flags;
-    testing: number
+    subregion: string;
+    tld: string[];
+    currencies: Object;
+    languages: Object;
+    borders: string[];
   }
