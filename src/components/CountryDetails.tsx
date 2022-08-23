@@ -11,12 +11,14 @@ function CountryDetails() {
   const [nativeName, setNativeName] = useState("");
   const [currencies, setCurrencies] = useState([] as string[]);
   const [languages, setLanguages] = useState([] as string[]);
+  const [borders, setBorders] = useState([] as any[]);
   const navigate = useNavigate();
   const regionNames = new Intl.DisplayNames("en", { type: "region" });
 
   useEffect(() => {
     let currencyArray = [] as string[];
     let languageArray = [] as string[];
+    let borderArray = [] as any[];
 
     setNativeName(
       Object.values(country.name.nativeName)[
@@ -30,8 +32,15 @@ function CountryDetails() {
 
     Object.values(country.languages).map((lang) => languageArray.push(lang));
 
+    {
+      country?.borders?.map((country) =>
+        borderArray.push(regionNames.of(country.substring(0, 2).toUpperCase()))
+      );
+    }
+
     setCurrencies(currencyArray);
     setLanguages(languageArray);
+    setBorders([...new Set(borderArray)]);
 
     console.log("Country >>", country);
   }, [country]);
@@ -50,17 +59,17 @@ function CountryDetails() {
 
       <div className="mt-16 mx-8 xl:mx-16 xl:mt-20 xl:grid xl:grid-cols-2">
         <img
-          className="w-full md:w-[35vw] md:aspect-video mx-auto md:mx-0"
+          className="w-full lg:w-[65%] xl:w-[35vw] lg:aspect-video mx-auto lg:mx-0"
           src={country.flags.svg}
           alt="Country Flag"
         />
 
-        <div>
+        <div className="w-full">
           <h2 className="font-extrabold text-[1.75rem] mt-9 md:mt-5">
             {country.name.common}
           </h2>
 
-          <div className="mt-6 md:flex md:w-[55%] md:justify-between">
+          <div className="mt-6 md:flex md:space-x-20 3xl:space-x-28 md:w-max md:justify-between">
             <div className="space-y-2">
               <p>
                 <span className="font-semibold">Native Name</span>: {nativeName}
@@ -98,19 +107,19 @@ function CountryDetails() {
             </div>
           </div>
 
-          <div className="mt-10 md:flex md:space-x-5 md:items-center">
+          <div className="mt-10 xl:flex xl:space-x-5 xl:items-baseline">
             <h2 className="font-semibold text-xl">Border Countries:</h2>
-            <div className="grid grid-cols-3 gap-3 gap-y-1 md:gap-y-0 justify-items-center md:flex">
-              {country.borders.map((country, i) => (
+            <div className="grid grid-cols-3 2xl:grid-cols-4 gap-3 gap-y-1 justify-items-center">
+              {borders.map((country, i) => (
                 <div
                   key={i}
-                  className={`back-button text-center w-full md:w-max md:px-4 mt-4 md:mt-0 py-2 rounded ${
+                  className={`back-button text-xs md:text-sm text-center w-full h-min xl:px-4 mt-4 xl:mt-0 py-2 rounded ${
                     darkMode
                       ? "bg-dark-blue text-white"
                       : "bg-white text-very-dark-Blue"
                   }`}
                 >
-                  {regionNames.of(country.substring(0, 2).toUpperCase())}
+                  {country}
                 </div>
               ))}
             </div>
