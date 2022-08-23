@@ -41,8 +41,6 @@ function CountryDetails() {
     setCurrencies(currencyArray);
     setLanguages(languageArray);
     setBorders([...new Set(borderArray)]);
-
-    console.log("Country >>", country);
   }, [country]);
 
   return (
