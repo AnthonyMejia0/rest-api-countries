@@ -1,46 +1,35 @@
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { countryAtomState } from "../atoms/countryAtom";
 import { darkAtomState } from "../atoms/darkAtom";
+import {
+  getCountryBorders,
+  getCountryLanguages,
+  getCurrencyArray,
+  getNativeName,
+} from "../functions/getCountryValues";
+import { countryType } from "../types/types";
 
 function CountryDetails() {
   const darkMode = useRecoilValue(darkAtomState);
-  const country = useRecoilValue(countryAtomState);
+  const [country, setCountry] = useRecoilState(countryAtomState);
   const [nativeName, setNativeName] = useState("");
   const [currencies, setCurrencies] = useState([] as string[]);
   const [languages, setLanguages] = useState([] as string[]);
-  const [borders, setBorders] = useState([] as any[]);
+  const [borders, setBorders] = useState([] as countryType[]);
   const navigate = useNavigate();
-  const regionNames = new Intl.DisplayNames("en", { type: "region" });
 
   useEffect(() => {
-    let currencyArray = [] as string[];
-    let languageArray = [] as string[];
-    let borderArray = [] as any[];
+    const getBorders = async () => {
+      setBorders(await getCountryBorders(country));
+    };
 
-    setNativeName(
-      Object.values(country.name.nativeName)[
-        Object.values(country.name.nativeName).length - 1
-      ].common
-    );
-
-    Object.values(country.currencies).map((curr) =>
-      currencyArray.push(curr.name)
-    );
-
-    Object.values(country.languages).map((lang) => languageArray.push(lang));
-
-    {
-      country?.borders?.map((country) =>
-        borderArray.push(regionNames.of(country.substring(0, 2).toUpperCase()))
-      );
-    }
-
-    setCurrencies(currencyArray);
-    setLanguages(languageArray);
-    setBorders([...new Set(borderArray)]);
+    setNativeName(getNativeName(country));
+    setCurrencies(getCurrencyArray(country));
+    setLanguages(getCountryLanguages(country));
+    getBorders();
   }, [country]);
 
   return (
@@ -109,16 +98,17 @@ function CountryDetails() {
             <h2 className="font-semibold text-xl">Border Countries:</h2>
             <div className="grid grid-cols-3 2xl:grid-cols-4 gap-3 gap-y-1 justify-items-center">
               {borders.map((country, i) => (
-                <div
+                <button
                   key={i}
+                  onClick={() => setCountry(country)}
                   className={`back-button text-xs md:text-sm text-center w-full h-min xl:px-4 mt-4 xl:mt-0 py-2 rounded ${
                     darkMode
                       ? "bg-dark-blue text-white"
                       : "bg-white text-very-dark-Blue"
                   }`}
                 >
-                  {country}
-                </div>
+                  {country.name.common}
+                </button>
               ))}
             </div>
           </div>
