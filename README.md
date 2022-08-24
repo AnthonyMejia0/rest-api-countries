@@ -31,8 +31,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [](https://github.com/AnthonyMejia0/rest-api-countries)
-- Live Site URL: [](https://rest-api-countries-tau.vercel.app/)
+- Solution URL: [Solution URL here](https://github.com/AnthonyMejia0/rest-api-countries)
+- Live Site URL: [Live site URL here](https://rest-api-countries-tau.vercel.app/)
 
 ## My process
 
