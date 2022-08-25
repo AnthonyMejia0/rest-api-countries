@@ -57,41 +57,41 @@ function CountryDetails() {
           </h2>
 
           <div className="mt-6 md:flex md:space-x-20 3xl:space-x-28 md:w-max md:justify-between">
-            <div className="space-y-2">
-              <p>
+            <ul className="space-y-2">
+              <li>
                 <span className="font-semibold">Native Name</span>: {nativeName}
-              </p>
-              <p>
+              </li>
+              <li>
                 <span className="font-semibold">Population</span>:{" "}
                 {country.population}
-              </p>
-              <p>
+              </li>
+              <li>
                 <span className="font-semibold">Region</span>: {country.region}
-              </p>
-              <p>
+              </li>
+              <li>
                 <span className="font-semibold">Sub Region</span>:{" "}
                 {country.subregion}
-              </p>
-              <p>
+              </li>
+              <li>
                 <span className="font-semibold">Capital</span>:{" "}
                 {country.capital}
-              </p>
-            </div>
+              </li>
+            </ul>
 
-            <div className="mt-10 md:mt-0 space-y-2">
-              <p>
+            <ul className="mt-10 md:mt-0 space-y-2">
+              <li>
                 <span className="font-semibold">Top Level Domain</span>:{" "}
                 {country.tld[0]}
-              </p>
-              <p>
+              </li>
+              <li>
                 <span className="font-semibold">Currencies</span>:{" "}
                 {currencies.join(", ")}
-              </p>
-              <p>
+              </li>
+              <li>
                 <span className="font-semibold">Languages</span>:{" "}
                 {languages.join(", ")}
-              </p>
-            </div>
+              </li>
+            </ul>
           </div>
 
           <div className="mt-10 xl:flex xl:space-x-5 xl:items-baseline">
