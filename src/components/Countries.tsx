@@ -106,20 +106,6 @@ function Countries() {
       </div>
 
       <main className="z-0 flex flex-col md:grid md:gap-10 3xl:gap-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 md:px-16 space-y-12 md:space-y-0 items-center md:justify-start mb-20">
-        {/* {allCountries
-          .filter(
-            (country) =>
-              country.name.official
-                .toLowerCase()
-                .includes(searchValue.toLowerCase()) &&
-              (filterValue !== "All"
-                ? country.region.includes(filterValue)
-                : true)
-          )
-          .map((country: countryType, i: Key) => (
-            <Country key={i} country={country} />
-          ))} */}
-
         {displayedCountries.length > 0 ? (
           displayedCountries.map((country: countryType, i: Key) => (
             <Country key={i} country={country} />
