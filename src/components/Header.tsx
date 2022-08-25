@@ -6,8 +6,8 @@ function Header() {
   const [darkMode, setDarkMode] = useRecoilState(darkAtomState);
 
   return (
-    <div
-      className={`py-8 px-5 md:py-4 md:px-16 flex items-center justify-between shadow-md ${
+    <header
+      className={`py-8 px-5 md:py-4 md:px-16 flex items-center justify-between shadow-md transition-colors duration-700 ${
         darkMode ? "bg-dark-blue text-white" : "bg-white text-very-dark-Blue"
       }`}
     >
@@ -27,7 +27,7 @@ function Header() {
           </button>
         </div>
       )}
-    </div>
+    </header>
   );
 }
 
