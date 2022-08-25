@@ -14,7 +14,7 @@ function App() {
         path="/details"
         element={
           <div
-            className={`h-screen overflow-x-hidden ${
+            className={`h-screen overflow-x-hidden transition-colors duration-700 ${
               darkMode
                 ? "bg-very-dark-Blue text-white"
                 : "bg-very-light-Gray text-very-dark-Blue"
@@ -30,7 +30,7 @@ function App() {
         path="/"
         element={
           <div
-            className={`h-screen overflow-x-hidden ${
+            className={`h-screen overflow-x-hidden transition-colors duration-700 ${
               darkMode
                 ? "bg-very-dark-Blue text-white"
                 : "bg-very-light-Gray text-very-dark-Blue"
