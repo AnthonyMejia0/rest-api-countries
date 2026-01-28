@@ -2,32 +2,37 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
   SearchIcon,
-} from "@heroicons/react/outline";
-import { VscDebugRestart } from "react-icons/vsc";
-import React, { Key, useEffect, useState } from "react";
-import ReactDropdown from "react-dropdown";
-import { useRecoilValue } from "recoil";
-import { darkAtomState } from "../atoms/darkAtom";
-import { countryType } from "../types/types";
-import Country from "./Country";
+} from '@heroicons/react/outline';
+import { VscDebugRestart } from 'react-icons/vsc';
+import { Key, useEffect, useState } from 'react';
+import ReactDropdown from 'react-dropdown';
+import { useRecoilValue } from 'recoil';
+import { darkAtomState } from '../atoms/darkAtom';
+import { countryType } from '../types/types';
+import Country from './Country';
+
+const countryFields =
+  'fields=name,capital,flags,population,region,subregion,tld,currencies,languages,borders';
 
 function Countries() {
   const darkMode = useRecoilValue(darkAtomState);
-  const [searchValue, setSearchValue] = useState("");
-  const [filterValue, setFilterValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
+  const [filterValue, setFilterValue] = useState('');
   const [allCountries, setAllCountries] = useState([] as countryType[]);
   const [displayedCountries, setDisplayedCountries] = useState(
-    [] as countryType[]
+    [] as countryType[],
   );
 
   const handleReset = () => {
-    setFilterValue("");
-    setSearchValue("");
+    setFilterValue('');
+    setSearchValue('');
   };
 
   useEffect(() => {
     const fetchCountries = async () => {
-      const response = await fetch("https://restcountries.com/v3.1/all");
+      const response = await fetch(
+        `https://restcountries.com/v3.1/all?${countryFields}`,
+      );
       const getAllCountries = await response.json();
       setAllCountries(getAllCountries);
       setDisplayedCountries(getAllCountries);
@@ -36,14 +41,15 @@ function Countries() {
   }, []);
 
   useEffect(() => {
+    if (!Array.isArray(allCountries)) return;
     setDisplayedCountries(
       allCountries.filter(
         (country) =>
           country.name.official
             .toLowerCase()
             .includes(searchValue.toLowerCase()) &&
-          (filterValue !== "All" ? country.region.includes(filterValue) : true)
-      )
+          (filterValue !== 'All' ? country.region.includes(filterValue) : true),
+      ),
     );
   }, [filterValue, searchValue, allCountries]);
 
@@ -53,7 +59,7 @@ function Countries() {
         <div className="flex items-center justify-center md:justify-start py-7 px-5 md:px-16">
           <form
             className={`w-full md:w-[29rem] flex items-center py-2 px-10 space-x-6 rounded-lg shadow-lg ${
-              darkMode ? "bg-dark-blue" : "bg-white"
+              darkMode ? 'bg-dark-blue' : 'bg-white'
             }`}
             onSubmit={(e) => e.preventDefault()}
           >
@@ -76,16 +82,16 @@ function Countries() {
             <ReactDropdown
               controlClassName={`flex items-center justify-between py-4 px-5 w-[15rem] rounded-lg shadow-lg cursor-pointer ${
                 darkMode
-                  ? "bg-dark-blue text-white"
-                  : "bg-white text-very-dark-Blue"
+                  ? 'bg-dark-blue text-white'
+                  : 'bg-white text-very-dark-Blue'
               }`}
               options={[
-                "All",
-                "Africa",
-                "America",
-                "Asia",
-                "Europe",
-                "Oceania",
+                'All',
+                'Africa',
+                'America',
+                'Asia',
+                'Europe',
+                'Oceania',
               ]}
               placeholder="Filter by Region"
               value={filterValue}
@@ -94,8 +100,8 @@ function Countries() {
               arrowClosed={<ChevronDownIcon className="h-4 w-4" />}
               menuClassName={`z-10 mt-1 space-y-1 absolute w-[15rem] left-0 rounded-lg shadow-lg py-4 px-5 cursor-pointer ${
                 darkMode
-                  ? "bg-dark-blue text-white"
-                  : "bg-white text-very-dark-Blue"
+                  ? 'bg-dark-blue text-white'
+                  : 'bg-white text-very-dark-Blue'
               }`}
             />
           </div>
